@@ -9,6 +9,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "johnny-five": "^2.1.0"
+    "@truffle/hdwallet-provider": "^1.6.0",
+    "johnny-five": "^2.1.0",
+    "web3": "^1.6.0"
   }
 }
