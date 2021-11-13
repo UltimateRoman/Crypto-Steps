@@ -4,17 +4,33 @@ pragma solidity ^0.8.2;
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
+import "./CryptoStepsNFT.sol";
+
 contract CryptoStepsToken is ERC20, Ownable {
+    address NFTAddress;
     mapping(address => uint) unclaimedRewards;
 
     constructor() ERC20("Crypto-Steps Token", "CST") {}
 
-    function increaseUserRewards(uint _amount) external onlyOwner {
-        unclaimedRewards[msg.sender] += _amount;
+    function setContractAddress( 
+        address _NFTAddress
+    ) 
+        external 
+        onlyOwner 
+    {
+        NFTAddress = _NFTAddress;
     }
 
-    function withdrawReward() external {
+    function increaseUserRewards(uint _amount, address _player) external onlyOwner {
+      unclaimedRewards[_player] += _amount;
+    }
+
+    function withdrawReward(string memory _metadata) external {
       if(unclaimedRewards[msg.sender] > 0) {
+        if(unclaimedRewards[msg.sender] > 10 ether) {
+          CryptoStepsNFT(NFTAddress).safeMint(msg.sender, _metadata);
+        }
+        unclaimedRewards[msg.sender] = 0;
         _mint(msg.sender, unclaimedRewards[msg.sender]);
       }
     }
