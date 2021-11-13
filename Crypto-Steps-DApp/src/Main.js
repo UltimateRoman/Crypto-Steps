@@ -24,9 +24,9 @@ export default function Main(props) {
         event.preventDefault();
         
         const metadata = {
-            name: "",
-            description: "",
-            image: ""
+            name: "Crypto Steps Novice",
+            description: "Claimed first CST reward",
+            image: "https://media.istockphoto.com/vectors/happy-sprinter-man-running-very-fast-side-view-of-cartoon-runner-man-vector-id1223629616?k=20&m=1223629616&s=170667a&w=0&h=2_aX2BvDQ2gDXNj8aJhJF9WTstO7KJ4TDvDMAi092dk="
         }
         const metadataString = JSON.stringify(metadata);
         let uri;

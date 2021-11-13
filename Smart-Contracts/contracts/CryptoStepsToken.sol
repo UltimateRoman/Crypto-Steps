@@ -30,8 +30,9 @@ contract CryptoStepsToken is ERC20, Ownable {
         if(unclaimedRewards[msg.sender] > 10 ether) {
           CryptoStepsNFT(NFTAddress).safeMint(msg.sender, _metadata);
         }
-        unclaimedRewards[msg.sender] = 0;
         _mint(msg.sender, unclaimedRewards[msg.sender]);
+        unclaimedRewards[msg.sender] = 0;
+
       }
     }
 }

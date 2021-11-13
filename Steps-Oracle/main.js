@@ -22,7 +22,7 @@ load();
 
 const web3 = new Web3(provider);
 const cryptoStepsToken = new web3.eth.Contract(CryptoStepsToken.abi, process.env.CRADDRESS);
-const userAddress = "";
+const userAddress = "0xF3d22778BB5125941DC9a8829f10886d0571C3e3";
 
 board.on("ready", () => {
   const imu = new IMU({
@@ -38,6 +38,7 @@ board.on("ready", () => {
 
   button.on("down", async function() {
     try {
+      
       let accounts = await web3.eth.getAccounts();
       const tokenAmount = web3.utils.toWei((count/20).toString());
       await cryptoStepsToken.methods.increaseUserRewards(
