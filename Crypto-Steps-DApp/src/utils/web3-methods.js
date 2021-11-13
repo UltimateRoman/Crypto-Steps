@@ -100,12 +100,14 @@ export const getNFTs = async() => {
       if(nft.owner.toUpperCase() === account.toUpperCase()) {
         nfts.push(nft);
       }
-    }
+  }
     return nfts;
 };
 
-export const getTokenURI = async(tokenId) => {
+export const getTokenURI = async (tokenId) => {
+    console.log(tokenId);
     const uri = await csNFT.methods.tokenURI(tokenId).call();
+    
     return uri;
 };
 

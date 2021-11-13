@@ -12,6 +12,7 @@ import {
     getTokenURI
 } from "./utils/web3-methods";
 import {Card} from "react-bootstrap";
+import Typography from '@mui/material/Typography';
 
 const client = create('https://ipfs.infura.io:5001/api/v0');
 
@@ -48,7 +49,7 @@ export default function Main(props) {
     }
     
     useEffect(() => {
-        async function fetch() {
+        async function fetchData() {
             const unclaimedcst = await unclaimedCST();
             if(unclaimedcst > 0) {
                 setDisable(false);
@@ -57,14 +58,16 @@ export default function Main(props) {
             const nfts = await getNFTs();
             let Nftms = [];
             for (var nft of nfts) {
-                const mdata = await getNFTMetadata(nft.tokenID);
+                const mdata = await getNFTMetadata(nft.tokenID-1);
                 mdata["tokenID"] = nft.tokenID;
                 Nftms.push(mdata);
             }
             setNfts(Nftms);
+            console.log("Hi");
         }
-        fetch();
+        fetchData();
     }, [disable, unclaimedcst]);
+
 
     return(
         <React.Fragment>
@@ -93,19 +96,24 @@ export default function Main(props) {
         }
             <div className={styles.band}>
             {nfts.map((nft, key) => (
-                    <Card style={{ width: '18rem' }} className={styles}>
-                        <Card.Img variant="top" alt="Not Available" src={nft.image} />
-                        <Card.Body>
-                            <Card.Title>{nft.name}</Card.Title>
-                            <Card.Text>Token ID: {nft.tokenID}<br /><br />
+                    <Card style={{ width: '30rem' }} className={styles}>
+                    <Card.Img variant="top" alt="Not Available" src={nft.image} />
+                    <hr/>
+                    <Card.Body>
+                        <Typography variant="h6">
+                        <Card.Text>Token ID: {nft.tokenID}<br /><br />
                                 {nft.description}
                             </Card.Text>
+                            <Card.Title>{nft.name}</Card.Title>
+                            <br />
+                            </Typography>
                         </Card.Body>
-                    </Card>
+                </Card>
+               
                     
             ))
             }
-            
+             <br /><br />
         </div>
         </center>
         </React.Fragment>
