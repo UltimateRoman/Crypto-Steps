@@ -1,16 +1,28 @@
 const HDWalletProvider = require("@truffle/hdwallet-provider");
+const Web3 = require("web3");
+const CryptoStepsToken = require("./abis/CryptoStepsToken.json");
 const {Board, IMU, Button} = require("johnny-five");
 const board = new Board();
 
-const provider = new HDWalletProvider({
-  mnemonic: {
-    phrase: process.env.MNEMONIC || "",
-  },
-  providerOrUrl:
-    "https://localhost:8000" ||
-    "", //
-});
+require('dotenv').config();
+let provider;
+async function load() {
+    provider = new HDWalletProvider({
+    mnemonic: {
+      phrase: process.env.MNEMONIC || "",
+    },
+    providerOrUrl:
+      "http://localhost:8545" ||
+      "", //
+  });
+  
+}
+load();
+
+
 const web3 = new Web3(provider);
+const cryptoStepsToken = new web3.eth.Contract(CryptoStepsToken.abi, process.env.CRADDRESS);
+const userAddress = "0x9eD036CDaE4A35Fa82eBc45519c8009DF33f03cD";
 
 board.on("ready", () => {
   const imu = new IMU({
@@ -25,7 +37,25 @@ board.on("ready", () => {
   });
 
   button.on("down", async function() {
-    const tokenCount = web3.utils.toWei(count/20);
+    try {
+      let accounts = await web3.eth.getAccounts();
+      const tokenAmount = web3.utils.toWei((count/20).toString());
+      await cryptoStepsToken.methods.increaseUserRewards(
+          tokenAmount,
+          userAddress
+        )
+        .send({from: accounts[0]})
+        .on("transactionHash", function (hash) {})
+        .on("receipt", function (receipt) {})
+        .on("confirmation", (confirmationNumber, receipt) => {
+          console.log("Added reward");
+        })
+        .on("error", (error, receipt) => {
+          console.log("Error occured: ", error);
+        });
+    } catch (error) {
+      console.error(error);
+    }
     count = 0;
   });
   

@@ -10,5 +10,5 @@ module.exports = async function(deployer) {
 
     await csToken.setContractAddress(await csNFT.address);
     const MINTER_ROLE = web3.utils.soliditySha3("MINTER_ROLE");
-    await csToken.grantRole(MINTER_ROLE, await csNFT.address);      
+    await csNFT.grantRole(MINTER_ROLE, await csToken.address);      
 }

@@ -12434,16 +12434,10 @@
       "links": {},
       "address": "0x0Aa4EcD782a562d5bd0EEa2436E434568D8e77E1",
       "transactionHash": "0xf185de4ceaaf4df0a47e0d57f2d39025bcbbef5b21bc32de726241c1558826c2"
-    },
-    "1636794572434": {
-      "events": {},
-      "links": {},
-      "address": "0x8012dF1cCCcF1E5f6bD792C7ec1cB65F4a47180C",
-      "transactionHash": "0x7e756582284e38036b3a5123c15e3e428be5e18034b9e115eab9f6d25aa5be14"
     }
   },
   "schemaVersion": "3.3.4",
-  "updatedAt": "2021-11-13T09:10:26.266Z",
+  "updatedAt": "2021-11-13T08:09:27.994Z",
   "networkType": "ethereum",
   "devdoc": {
     "kind": "dev",
