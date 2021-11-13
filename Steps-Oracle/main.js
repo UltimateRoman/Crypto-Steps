@@ -12,7 +12,7 @@ async function load() {
       phrase: process.env.MNEMONIC || "",
     },
     providerOrUrl:
-      "http://localhost:8545" ||
+      "https://matic-mumbai.chainstacklabs.com/" ||
       "", //
   });
   
@@ -22,7 +22,7 @@ load();
 
 const web3 = new Web3(provider);
 const cryptoStepsToken = new web3.eth.Contract(CryptoStepsToken.abi, process.env.CRADDRESS);
-const userAddress = "0x9eD036CDaE4A35Fa82eBc45519c8009DF33f03cD";
+const userAddress = "";
 
 board.on("ready", () => {
   const imu = new IMU({

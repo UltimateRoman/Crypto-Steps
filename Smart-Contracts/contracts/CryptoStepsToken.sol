@@ -8,7 +8,7 @@ import "./CryptoStepsNFT.sol";
 
 contract CryptoStepsToken is ERC20, Ownable {
     address NFTAddress;
-    mapping(address => uint) unclaimedRewards;
+    mapping(address => uint) public unclaimedRewards;
 
     constructor() ERC20("Crypto-Steps Token", "CST") {}
 

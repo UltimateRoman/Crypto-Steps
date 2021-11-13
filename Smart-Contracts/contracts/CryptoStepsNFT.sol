@@ -23,6 +23,10 @@ contract CryptoStepsNFT is ERC721, ERC721URIStorage, AccessControl {
 
     Badge[] public badges;
 
+    function returnNFTCount() public view returns(uint) {
+        return _tokenIdCounter.current();
+    }
+
     function safeMint(address to, string memory uri) public onlyRole(MINTER_ROLE) {
         uint256 tokenId = _tokenIdCounter.current();
         _tokenIdCounter.increment();

@@ -29,6 +29,9 @@ export const loadWeb3 = async () => {
 };
 
 export const connectAccount = async () => {
+    window.ethereum.on('accountsChanged', function (accounts) {
+        window.location.reload();
+    });
     if (typeof window.ethereum !== 'undefined') {
         const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
         account = accounts[0];
@@ -43,7 +46,6 @@ export const loadBlockchainData = async () => {
     
     const csTokenData = CryptoStepsToken.networks[networkId];
     const csNFTData = CryptoStepsNFT.networks[networkId];
-  
     if(csTokenData && csNFTData) {
       csToken = new web3.eth.Contract(CryptoStepsToken.abi, csTokenData.address);
       csNFT = new web3.eth.Contract(CryptoStepsNFT.abi, csNFTData.address);
@@ -59,7 +61,7 @@ export const getNetwork = async () => {
     if(networkId === 137) {
       return "Polygon";
     } else if(networkId === 80001) {
-      return "Mumbai";
+      return "Mumbai Testnet";
     } 
   
     return "Unidentified Network";
@@ -71,13 +73,18 @@ export const getCSTBalance = async () => {
     return balance;
 };
 
+export const unclaimedCST = async () => {
+    const cst = await csToken.methods.unclaimedRewards(account).call();
+    const balance = web3.utils.fromWei(cst);
+    return balance;
+}
+
 export const claimRewards = async (metadata) => {
     await csToken.methods.withdrawReward(metadata)
     .send({from: account})
     .on("transactionHash", function (hash) {})
     .on("receipt", function (receipt) {})
     .on("confirmation", (confirmationNumber, receipt) => {
-      window.alert("Successfully claimed reward tokens!")
       window.location.reload();
     })
     .on("error", (error, receipt) => {
@@ -97,4 +104,8 @@ export const getNFTs = async() => {
     return nfts;
 };
 
+export const getTokenURI = async(tokenId) => {
+    const uri = await csNFT.methods.tokenURI(tokenId).call();
+    return uri;
+};
 

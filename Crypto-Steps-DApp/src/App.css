@@ -36,3 +36,32 @@
     transform: rotate(360deg);
   }
 }
+
+.BackupButton {
+  border: none;
+  color: white;
+  border-radius: 18px;
+  opacity: 1;
+  transition: 0.3s;
+  padding: 30px 64px;
+  display: inline-block;
+  font-size: 30px;
+}
+
+.heading {
+  color: magenta;
+  text-align: center;
+}
+
+.n-heading {
+  color: yellow;
+  text-align: center;
+}
+
+.rew {
+  color:aqua;
+  text-align: center;
+  font-size: 35px;
+}
+
+

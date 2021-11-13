@@ -1,2 +1,5 @@
 /Steps-Oracle/node_modules
+/Steps-Oracle/.env
 /Smart-Contracts/node_modules
+/Crypto-Steps-DApp/node_modules
+/Smart-Contracts/.secret

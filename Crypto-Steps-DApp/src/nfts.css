@@ -1,0 +1,32 @@
+.band {
+    width: 90%;
+    max-width: 1240px;
+    margin: 0 auto;
+    
+    margin-top: 25px;
+    display: grid;
+    
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: auto;
+    grid-gap: 20px;
+    
+    @media (min-width: 30em) {
+      grid-template-columns: 1fr 1fr;
+    }
+    
+    @media (min-width: 60em) {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+  
+  .card {
+    background: white;
+    text-decoration: none;
+    color: #444;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    /* display: flex;
+    flex-direction: column; */
+    min-height: 100%;
+    
+  
+  }

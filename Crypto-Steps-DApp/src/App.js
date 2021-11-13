@@ -1,4 +1,4 @@
-import { 
+import React, { 
   useEffect,
   useState
 } from "react";
@@ -10,11 +10,14 @@ import {
   getNetwork,
   getCSTBalance
 } from "./utils/web3-methods";
+import Header2 from "./header2";
+import Main from "./Main";
 
 function App() {
   const [account, setAccount] = useState("Not Connected");
   const [networkName, setNetwork] = useState("Unidentified Network");
   const [isConnected, setConnected] = useState(false);
+  const [cstBalance, setCSTBalance] = useState(0);
 
   useEffect(() => {
     async function fetchData() {
@@ -26,33 +29,39 @@ function App() {
           setAccount(acc);
           const networkName = await getNetwork();
           setNetwork(networkName);
+          const cst = await getCSTBalance();
+          setCSTBalance(cst);    
           setConnected(true);
         }
       }
     }
+    fetchData();
   },[isConnected]);
 
   if(isConnected) {
     return (
-      <div className="App">
-        <header className="App-header">
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+      <div>
+        <Header2
+          isConnected={isConnected}
+          networkName={networkName}
+          account={account}
+          cstBalance={cstBalance}
+          connectAccount={connectAccount}
+        />
+        <Main/>
       </div>
     );
     } else {
       return (
-        <h1>Not Connected</h1>
+        <div>
+          <Header2
+            isConnected={isConnected}
+            networkName={networkName}
+            account={account}
+            cstBalance={cstBalance}
+            connectAccount={connectAccount}
+          />
+        </div>
       )
     }
 }
