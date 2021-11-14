@@ -32,7 +32,6 @@ contract CryptoStepsToken is ERC20, Ownable {
         }
         _mint(msg.sender, unclaimedRewards[msg.sender]);
         unclaimedRewards[msg.sender] = 0;
-
       }
     }
 }
